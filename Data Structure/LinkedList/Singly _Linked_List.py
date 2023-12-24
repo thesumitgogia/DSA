@@ -1,185 +1,185 @@
 class Node:
     def __init__(self, data=None, next=None):
+        # Node class for a linked list.
         self.data = data
         self.next = next
 
 
 class LinkedList:
     def __init__(self):
+        # Initializes an empty linked list.
         self.head = None
 
-    def insertAtBegining(self, data):
-        # print(self.head)
-        node = Node(data, self.head)
+    def insertAtBeginning(self, value):
+        # Inserts a new node with the given value at the beginning of the linked list.
+        node = Node(value, self.head)
         self.head = node
 
-    def print(self):
-        if self.head is None:
-            print("Linked List is empty")
+    def insertAtEnd(self, value):
+        # Inserts a new node with the given value at the end of the linked list.
+        if not self.head:
+            # If the list is empty, add to the beginning instead of the end.
+            self.insertAtBeginning(value)
+        temp = self.head
+        while temp.next:
+            temp = temp.next
+        temp.next = Node(value)
+
+    def insertAfterNode(self, node, value):
+        # Inserts a new node with the given value after a specified node.
+        if self.head.data == node:
+            self.head.next = Node(value, self.head.next)
             return
-        itr = self.head
-        llstr = ''
-        # print(itr.next.data)
+        temp = self.head
+        while temp.next:
+            if temp.next.data == node:
+                new_node = Node(value, temp.next)
+                temp.next = new_node
+                return
 
-        while itr:
-            llstr += str(itr.data) + ' -> '
-            itr = itr.next
-
-        print(llstr)
-
-    def insertAtEnd(self, data):
-        if self.head is None:
-            self.head = Node(data, None)
+    def deleteNodeByPosition(self, position):
+        # Deletes a node at the specified position in the linked list.
+        if not self.head:
+            print("Linked List is Empty!")
             return
-
-        itr = self.head
-        while itr.next:
-            itr = itr.next
-
-        itr.next = Node(data, None)
-
-    def insert_values(self, values):
-        # self.head = None
-        for data in values:
-            self.insertAtEnd(data)
-
-    def get_length(self):
-        count = 0
-        itr = self.head
-        while itr:
-            count += 1
-            itr = itr.next
-        return count
-
-    def remove_at(self, index):
-        if index < 0 or index >= self.get_length():
-            raise Exception('Invalid Index')
-        if index == 0:
+        if position < 0 or position > self.getLength() - 1:
+            print("Invalid Position!")
+            return
+        if position == 0:
+            # Special case: Deleting the head node.
             self.head = self.head.next
             return
-
+        temp = self.head
         count = 0
-        itr = self.head
-        while itr:
-            if count == index - 1:
-                itr.next = itr.next.next
-                break
-
-            itr = itr.next
+        while temp:
+            if position - 1 == count:
+                temp.next = temp.next.next
+                return
+            temp = temp.next
             count += 1
 
-    def insert_at(self, index, data):
-        if index < 0 or index >= self.get_length():
-            raise Exception('Invalid Index')
-
-        if index == 0:
-            self.insertAtBeginning(data)
-            return
+    def getAtPosition(self, position):
+        # Retrieves the data value at the specified position in the linked list.
+        if not self.head:
+            print("Linked List is Empty!")
+            return None
+        temp = self.head
         count = 0
-        itr = self.head
-        while itr:
-            if count == index - 1:
-                node = Node(data, itr.next)
-                itr.next = node
-                break
-            itr = itr.next
+        while temp:
+            if position == count:
+                return temp.data
+            temp = temp.next
             count += 1
 
-
-
-        if self.head == None:
-            return
-        if self.head.data == data_after:
-            node = Node(data_to_insert, self.head.next)
-            self.head.next = node
-            return
-
-        itr = self.head
-        while itr:
-            if itr.data == data_after:
-                node = Node(data_to_insert, itr.next)
-                itr.next = node
-                break
-            itr = itr.next
-
-        print("value not exist")
-
-
-
-
-    def remove_by_value(self, data):
-        if self.head == None:
-            print("List is Empty")
-            return
-        if self.head.data == data:
-            print("Data founded at 1")
-        itr = self.head
-        count = 1
-        while itr.next != None:
-            if itr.next.data == data:
-                print(f"Data founded at {count}")
-                itr.next = itr.next.next
-                break
+    def getLength(self):
+        # Returns the length of the linked list.
+        if not self.head:
+            print("List is Empty!")
+            return 0
+        temp = self.head
+        count = 0
+        while temp:
+            temp = temp.next
             count += 1
-            itr = itr.next
+        return count
 
-        # print(self.head == None)
-    # Remove first node that contains data
+    def reverseList(self):
+        # Reverses the linked list and prints the reversed list.
+        if not self.head:
+            print("Linked List is Empty!")
+            return
+        if not self.head.next:
+            # Special case: Single-node linked list.
+            print(str(self.head.data) + ' --> None')
+            return
+        temp = self.head
+        arr = []
+        while temp:
+            arr.append(str(temp.data) + ' -> ')
+            temp = temp.next
+        for i in range(len(arr) - 1, -1, -1):
+            print(arr[i], end='')
+        print('None')
+
+    def isEmpty(self):
+        # Checks if the linked list is empty.
+        return not self.head
+
+    def clear(self):
+        # Clears the linked list (makes it empty).
+        self.head = None
+
+    def print(self):
+        # Prints the elements of the linked list.
+        if not self.head:
+            print("List is Empty!")
+            return
+        temp = self.head
+        while temp:
+            print(temp.data, end=' -> ')
+            temp = temp.next
+        print('None')
+
+    def insertList(self, values):
+        # Inserts a list of values at the end of the linked list.
+        if self.isEmpty():
+            return
+        for value in values:
+            self.insertAtEnd(value)
+
+    def deleteNodeByKey(self, key):
+        # Deletes the first occurrence of a node with the specified key.
+        pass
+
+    def searchByKey(self, key):
+        # Searches for a node with the specified key and returns its reference.
+        pass
 
 
-if __name__ == '__main__':
-    ll = LinkedList()
-    ll.insertAtBegining(5)
-    ll.insertAtBegining(75)
-    ll.insertAtBegining(65)
-    ll.insertAtBegining(56)
-    ll.insertAtBegining(76)
-    ll.insertAtBegining(86)
-    ll.insertAtBegining(64)
-    # ll.insertAtEnd(59)
-    # ll.insertAtBegining(89)
-    # ll.insertAtEnd(69)
-    # ll.insertAtEnd(79)
+ll = LinkedList()
+ll.insertAtBeginning(50)
+ll.insertAtBeginning(40)
+ll.insertAtBeginning(30)
+ll.insertAtBeginning(20)
+ll.insertAtEnd(60)
+# print(ll.head.next.next.next.next.data)
+# ll.print()
+# ll.print()
+# ll.insertAfterNode(20, 10)
+ll.print()
+# print(ll.getAtPosition(2))
+# print(ll.isEmpty())
 
-    # ll.insert_values(["Banana", "Apple", "Orange", "Grapes", "Mango"])
-    # print(ll.get_length())
-    # ll.print()
-    # ll.remove_at(-20)
-    # ll.insert_at(3, 5)
+# print(ll.getLength())
+# ll.deleteNodeByPosition(2)
+# ll.print()
+# ll.clear()
+# ll.print()
+# ll.reverseList()
 
-    # ll.remove_by_value(56)
-    # ll.insert_after_value(60, 20)
-    # print(ll.head.data)
-    # print(ll.head.next.data)
-    # print(ll.head.next.next.data)
-    # print(ll.head.next.next.next.data)
-    # print(ll.head.next.next.next.next.data)
-    # print(ll.head.next.next.next.next.next.data)
-    # print(ll.head.next.next.next.next.next.next.data)
-    # print(ll.head.next.next.next.next.next.next.next)
-
-    ll.print()
+# list = [24, 45, 23, 76]
+# ll.insertByList(list)
+ll.print()
 
 
-    
 # Methods to add
-    # insertAtBeginning(value)
-    # insertAtEnd(value)
-    # insertAfterNode(node, value)
+# insertAtBeginning(value)
+# insertAtEnd(value)
+# insertAfterNode(node, value)
 
 # Methods to delete
-    # deleteNodeByKey(key)
-    # deleteNodeByPosition(position)
+# deleteNodeByKey(key)
+# deleteNodeByPosition(position)
 
 # Search and Access Methods
-    # searchByKey(key)
-    # getAtPosition(position)
-    # getLength()
+# searchByKey(key)
+# getAtPosition(position)
+# getLength()
 
 # Traversal and Display Methods
-    # printList()
-    # reverseList()
+# printList()
+# reverseList()
 
 # Other Methods
-    # isEmpty()
-    # clear()
+# isEmpty()
+# clear()

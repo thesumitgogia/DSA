@@ -58,10 +58,3 @@ class CircularDoublyLinkedList:
             temp = temp.next
 
 
-# cdll = CircularDoublyLinkedList()
-
-# cdll.insertAtBeginning(20)
-# cdll.insertAtBeginning(30)
-# cdll.insertAtBeginning(40)
-# cdll.insertAtTail(50)
-# cdll.insertAfterNode(30, 90)

@@ -5,103 +5,113 @@ class Node:
         self.next = next
 
 
-class LinkedList:
-    def __init__(self, head=None):
-        self.head = head
+class Node:
+    def __init__(self, prev=None, data=None, next=None):
+        # Node class for a doubly linked list.
+        self.prev = prev
+        self.data = data
+        self.next = next
+
+
+class DoublyLinkedList:
+    def __init__(self):
+        # Initializes an empty doubly linked list.
+        self.head = None
 
     def isEmpty(self):
-        return self.head is None
+        return not self.head
 
     def insertAtBeginning(self, value):
         node = Node(None, value, self.head)
-        if not self.isEmpty():
+        if self.head is not None:
             self.head.prev = node
         self.head = node
 
-    def size(self):
-        count = 0
+    def insertAtEnd(self, value):
+        if self.isEmpty():
+            self.insertAtBeginning(value)
+
         temp = self.head
-        while temp:
-            count += 1
+        while temp.next:
             temp = temp.next
-        return count
+        node = Node(temp, value, None)
+        temp.next = node
 
-    def print(self):
 
-        prev = self.head
-        print("Previous: None --> ", end='')
-        for i in range(self.size() - 1):
-            prev = prev.next
-            print(prev.prev.data, end='')
-            if i == self.size() - 2:
-                break
-            print(" --> ", end='')
 
-        current = self.head
-        next = ''
-        print("\nData: \t " + " ", end='')
-        while current:
-            next += str(current.data) + ' --> '
-            current = current.next
-        print(next, end=' None')
-        print()
+    def insertAfterNode(self, node, value):
+        """
+        Inserts a new node with the given value after a specified node.
+        """
+        pass
 
-        previous = self.head.next
-        next_data = ''
-        print("Next: \t " + ' ' + ' ', end='')
-        while previous:
-            next_data += str(previous.data) + ' --> '
-            previous = previous.next
-        print(next_data, end=' None')
-        print()
+    def deleteNodeByKey(self, key):
+        """
+        Deletes the first occurrence of a node with the specified key.
+        """
+        pass
 
-    def addAtAfter(self, value, after_value):
-        if self.head == None:
-            print("List is Empty")
+    def deleteNodeByPosition(self, position):
+        """
+        Deletes the node at the specified position.
+        """
+        pass
+
+    def searchByKey(self, key):
+        """
+        Searches for a node with the specified key and returns its reference.
+        """
+        pass
+
+    def getAtPosition(self, position):
+        """
+        Gets the value of the node at the specified position.
+        """
+        pass
+
+    def getLength(self):
+        """
+        Gets the length of the doubly linked list.
+        """
+        pass
+
+    def printForward(self):
+        if self.isEmpty():
             return
-
         temp = self.head
-        while temp:
-            if temp.data == after_value:
-                node = Node(temp, value, temp.next)
-                temp.next.prev = node
-                temp.next = node
-                tem = node
-
+        items = ''
+        while temp.next:
+            items += str(temp.data) + ' --> '
             temp = temp.next
+        print(items + 'None')
+    def printBackward(self):
+        if self.isEmpty():
+            return
+        temp = self.head
+        while temp.next:
+            temp = temp.next
+        data = ''
+        while temp:
+            data += str(temp.data) + ' --> '
+            temp = temp.prev
+        print(data, end='None')
 
-    def printBackward():
+    def reverseList(self):
+        """
+        Reverses the order of elements in the doubly linked list.
+        """
         pass
 
-    def removeAt(self, index):
-        pass
-        # if self.head == None:
-        #     print("The list is empty.")
-
-        # itr = 0
-        # while itr < self.size():
-        #     if itr == index:
-        #         if (itr == 0 and self.head.next == None):
-        #             self.head = None
-        #             break
-        #         else:
+    def clear(self):
+        self.head = None
 
 
-ll = LinkedList()
+dll = DoublyLinkedList()
 
-ll.insertAtBeginning(2)
-ll.insertAtBeginning(4)
-ll.insertAtBeginning(3)
-ll.insertAtBeginning(45)
-ll.insertAtBeginning(6)
-ll.insertAtBeginning(4)
-ll.insertAtBeginning(3)
-ll.insertAtBeginning(25)
-ll.insertAtBeginning(10)
-ll.insertAtBeginning(8)
-ll.insertAtBeginning(21)
-ll.addAtAfter(20, 45)
-# print(ll.size())
-ll.print()
+dll.insertAtBeginning(20)
+dll.insertAtBeginning(30)
+dll.insertAtBeginning(40)
+dll.insertAtBeginning(50)
+dll.insertAtEnd(10)
 
-# ll.printBackward()
+dll.printBackward()
