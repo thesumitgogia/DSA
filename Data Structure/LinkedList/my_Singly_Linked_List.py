@@ -126,7 +126,7 @@ class LinkedList:
             return
         for value in values:
             self.insertAtEnd(value)
-
+            
     def deleteNodeByKey(self, key):
         # Deletes the first occurrence of a node with the specified key.
         pass
@@ -157,8 +157,8 @@ ll.print()
 # ll.print()
 # ll.reverseList()
 
-list = [24, 45, 23, 76]
-ll.insertByList(list)
+# list = [24, 45, 23, 76]
+# ll.insertByList(list)
 ll.print()
 
 
